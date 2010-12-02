@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>IMGswitch 1.0 Instructions</title>
+
+<style type="text/css">
+
+/*QUICK RESET*/
+h1,h2,h3,h4,h5,p,pre,code,div,body {margin: 0; padding: 0;}
+
+body {
+	background: #001624;
+	color: #222;
+	text-align: center;
+	margin: 0 auto;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#allWrap {
+	width: 740px;
+	height: auto;
+	margin: 0 auto;
+}
+
+#pageWrap {
+	width: 700px;
+	height: auto;
+	float: left;
+	padding: 20px;
+	text-align: left;
+	background-color: #fff;
+	background-color: rgba(255,255,255,.9);
+	-moz-box-shadow: 0 0 10px #000;
+	-webkit-box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 10px #000;
+}
+
+.section {
+	width: 700px;
+	height: auto;
+	float: left;
+	clear: both;
+	display: block;
+	margin: 20px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #DE521C;
+}
+
+a { color: #DE521C; text-decoration: none; text-shadow: 1px 1px #ccc; }
+a:hover { color: #fff; background: #DE521C; text-shadow: none; }
+
+p {
+	font-size: 13px;
+	line-height: 18px;
+	display: block;
+	clear: both;
+	margin: 15px 0 0 0;
+}
+p.step {
+	font-size: 15px;
+	line-height: 18px;
+	font-weight: bold;
+	color: #132F3F;
+}
+
+p.copy { font-size: 11px; line-height: 13px; font-weight: bold; padding: 20px 0 0 0; }
+
+h1 { text-shadow: 1px 1px #aaa; font-size: 36px; line-height: 36px; color: #0075bf; }
+h1.sub { font-size: 22px; line-height: 22px; margin: 0 0 0 0; }
+
+h2 { color: #0075bf; font-size: 24px; line-height: 20px; margin: 15px 0 0 0; }
+
+h3 { color: #00598C; font-size: 17px; line-height: 17px; margin: 25px 0 0 0; }
+
+h4 { color: #222; font-size: 14px; line-height: 14px; }
+h4.default { margin: 3px 0 0 0; color: #001724; }
+h4.examples { margin: 15px 0 0 0; }
+
+code { color: #132F3F; font-weight: bold; }
+code.space { margin: 15px 0 0 0; display: block; }
+
+pre {
+	width: 660px;
+	height: auto;
+	float: left;
+	overflow-x: auto;
+	overflow-y: none;
+	display: block;
+	padding: 2px 10px;
+	background: #001624;
+	color: #eee;
+	font-size: 12px;
+	margin: 10px 0 20px 0;
+}
+pre code { color: #eee; font-weight: normal; }
+
+.nospace { margin: 0; }
+
+</style>
+
+</head>
+<body>
+
+<div id="allWrap">
+<div id="pageWrap">
+
+<h1>IMGswitch 1.0</h1>
+<h1 class="sub"><a href="http://www.evan-rowe.com">www.evan-rowe.com</a></h1>
+
+<div class="section">
+<h2>Introduction</h2>
+
+<p>IMGswitch is a very simple jQuery plugin with the explicit purpose of creating a basic image gallery on your site. It has been written with the intent of being used on a site integrated with a CMS that handles the auto generation of image thumbnails; more specifically, it is compatible with the TinyMCE ImageManager plugin (using default thumbnail settings) directly out of the box, but it supports customization of the thumbnail subdirectory and filename prefix, which could theoretically be used to allow it to function with a different image uploading/thumbnail generation solution.</p>
+
+
+<h2>Installation</h2>
+
+<p class="step">1. Load jQuery and the IMGswitch plugin</p>
+
+<p>Add the following within the <code>&lt;head&gt;</code> element of your page:</p>
+
+<pre>
+<code>
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/IMGswitch/jquery.imgswitch.1.0-min.js"&gt;&lt;/script&gt;
+</code>
+</pre>
+
+<p class="step">2. Add the IMGswitch CSS file</p>
+
+<p>Add this line within the <code>&lt;head&gt;</code> element of your page, just after your other stylesheets:</p>
+
+<pre>
+<code>
+&lt;link rel="stylesheet" href="/imgswitch.css" /&gt;
+</code>
+</pre>
+
+<p class="step">OR</p>
+
+<p class="nospace">Copy the contents of imgswitch.css to your main stylesheet</p>
+
+<p class="step">3. Create your HTML</p>
+
+<p>If you're working with a CMS and using templates, make sure you've got your images stored in a parent container of some sort:</p>
+
+<pre>
+<code>
+&lt;div id="myContainer"&gt;
+{template tag to insert your content}
+&lt;/div&gt;
+</code>
+</pre>
+
+<p>In your CMS, insert your images into your content editor one after another; there is no need to use separators like list items or paragraphs. The HTML would look something like this:</p>
+
+<pre>
+<code>
+&lt;img src="/path/to/file/image01.jpg" alt="Image One" /&gt;
+&lt;img src="/path/to/file/image03.jpg" alt="Image Two" /&gt;
+&lt;img src="/path/to/file/image03.jpg" alt="Image Three" /&gt;
+&lt;img src="/path/to/file/image04.jpg" alt="Image Four" /&gt;
+</code>
+</pre>
+
+<p>Note that editors like TinyMCE tend to wrap this kind of thing in a paragraph tag; this is ok, the plugin will still work without a need to declare it.</p>
+
+<p>You may of course also hardcode this same HTML onto a page and call the function on its parent container. Once your CMS has fed your images into the template, or once you have manually placed your images inside of a container, the HTML should look like this:</p>
+
+<pre>
+<code>
+&lt;div id="myContainer"&gt;
+  &lt;img src="/path/to/file/image01.jpg" alt="Image One" /&gt;
+  &lt;img src="/path/to/file/image03.jpg" alt="Image Two" /&gt;
+  &lt;img src="/path/to/file/image03.jpg" alt="Image Three" /&gt;
+  &lt;img src="/path/to/file/image04.jpg" alt="Image Four" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+<p class="step">4. Fire the function with a standard jQuery call:</p>
+
+<pre>
+<code>
+&lt;script type="text/javascript"&gt;
+
+$(document).ready(function(){
+  $('#myContainer').IMGswitch();
+});
+
+&lt;/script&gt;
+</code>
+</pre>
+
+<p></p>
+
+</div>
+
+<div class="section">
+<h2>Configuring Options</h2>
+
+<p>IMGswitch has support for some basic configuration options:</p>
+
+<h3>thumbDir</h3>
+<h4 class="default">Defaults to: 'mcith'</h4>
+<p>The subdirectory of your thumbnail images. The default value is 'mcith', which is what TinyMCE ImageManager's default setting is. The plugin assumes that the subdirectory is based in the same parent directory as your main image. You can specify an alternate subdirectory, a path that goes down multiple levels, or no subdirectory at all. In the first two cases, note that a trailing slash is NOT necessary.</p>
+
+<h4 class="examples">Examples:</h4>
+
+<code class="space">thumbDir : 'thumbs'</code>
+<p class="nospace">Tells the plugin to look for thumbnails in a folder called "thumbs" in the same folder as the main image is stored.</p>
+
+<code class="space">thumbDir : 'alternates/thumbs'</code>
+<p class="nospace">Tells the plugin to look for thumbnails two folders deep, first in "alternates", then in "thumbs", starting from the same folder as the main image.</p>
+
+<code class="space">thumbDir : false</code>
+<p class="nospace">Passing the boolean value "false" to this option tells the plugin to look for thumbnails in the same folder as the main image.</p>
+
+<h3>thumbPrefix</h3>
+<h4 class="default">Defaults to: 'mcith_'</h4>
+<p>The prefix on the filenames of your thumbnails. Following the TinyMCE Image Manager's method for naming thumbnails, the plugin assumes that the thumbnail file's name is the same as the main image's, with some prefix prepended to the beginning. The default setting is "mcith_", but you may specify your own prefix or no prefix.</p>
+
+<h4 class="examples">Examples:</h4>
+
+<code class="space">thumbPrefix : 'small_'</code>
+<p class="nospace">Tells the plugin to add "small_" to the beginning of the main image's filename. So if the original image was called "my-dog-spot.jpg", it would be searching for a thumbnail called "small_my-dog-spot.jpg".</p>
+
+<code class="space">thumbPrefix : false</code>
+<p class="nospace">Using the boolean value "false" for this option tells the plugin not to prepend anything to the file name. If you don't have thumbnails to use, this could be useful used in conjunction with "thumbDir : false" to tell the plugin to use the main images as the thumbnails.</p>
+
+<h3>thumbWidth</h3>
+<h4 class="default">Defaults to: 90</h4>
+<p>Sets the width for thumbnails to scale to, using the "width" attribute of the IMG tag. Enter a purely numeric value for this option if you need the thumbnail image to be larger or smaller than the default. This property could be especially useful when used in conjunction with "thumbDir : false" and "thumbPrefix: false".</p>
+
+<h4 class="examples">Examples:</h4>
+
+<code class="space">thumbWidth : '65'</code>
+<p class="nospace">Sets thumbnails to scale to a width of 65px</p>
+
+<h3>focusWidth</h3>
+<h4 class="default">Defaults to: "auto"</h4>
+<p>Specifies the width of the main (selected) image. Rather than setting this value via the "width" attribute of the IMG tag, it's set via the "width" property of the style attribute. This option accepts any value that CSS would typically accept in the 'width' property. The default value is "auto", which fits the image to whatever width is specified in CSS for .focusImage container (which by default takes on the width of the container you called the IMGswitch function on). This option is provided in case</p>
+
+<h4 class="examples">Examples:</h4>
+
+<code class="space">focusWidth : '250px'</code>
+<p class="nospace">Sets all images to scale to 250px in width</p>
+
+<code class="space">focusWidth : '90%'</code>
+<p class="nospace">Sets all images to scale by width to 90% of its parent container's (.focusImage) width</p>
+</div>
+
+<div class="section">
+<h2>Setting a Callback Function</h2>
+
+<p>IMGswitch is built with support for running a callback function after it's finished creating the gallery from your images. One way this could be useful is in the event you wanted to be able to click on the main image and have it bring up a lightbox.</p>
+
+<p>The callback is defined like any other function, and can be included with or without passing options to IMGswitch. If you intend to pass both options and a callback, be sure to pass the options first, followed by the callback, like so:</p>
+
+<pre>
+<code>
+$('#myElement').IMGswitch(options,callback);
+</code>
+</pre>
+</div>
+
+<p class="copy">IMGswitch &copy;2010 <a href="http://www.evan-rowe.com">Evan Rowe</a>.</p>
+
+</div>
+</div>
+
+
+</body>
+</html>
